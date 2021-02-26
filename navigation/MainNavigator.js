@@ -1,17 +1,20 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainScreen from '../screens/MainScreen';
 import LoginScreen from '../screens/LoginScreen';
+import DrawerNavigator from './DrawerNavigator';
 
-const MyStack = createStackNavigator();
 const AuthStackNavigator = createStackNavigator();
+
 function AuthNavigator() {
     return (
         <AuthStackNavigator.Navigator>
-            <AuthStackNavigator.Screen name='Auth' component={LoginScreen} />
+            <AuthStackNavigator.Screen
+                component={LoginScreen}
+                name='Auth'
+            />
         </AuthStackNavigator.Navigator>
-    )
+    );
 }
 
 export default function MainNavigator() {
@@ -21,11 +24,9 @@ export default function MainNavigator() {
         <NavigationContainer>
             {
                 isAuthenticated ?
-                    <MyStack.Navigator>
-                        <MyStack.Screen name='Main' component={MainScreen} />
-                    </MyStack.Navigator> :
+                    <DrawerNavigator /> :
                     <AuthNavigator />
             }
         </NavigationContainer>
-    )
+    );
 }

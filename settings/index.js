@@ -1,0 +1,1 @@
+export const apiUrl = 'https://likar-plus-app-default-rtdb.firebaseio.com/';

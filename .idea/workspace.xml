@@ -2,14 +2,67 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3a52d4f-d053-4167-b639-1d449899e3a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/containers/Theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/navigation/MainNavigator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/LoginScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/MainScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/theme/theme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.eslintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.stylelintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/Anchor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/AppTouchable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/Badge.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/Collapsible.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/CustomHeaderButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/FormInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/FormInput.style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/Icon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/TouchableIcon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/doctors/DoctorsFilters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/drivers/DriversFilters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppCheckboxGroupInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppCheckboxInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppDateInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppPhoneInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppPickerInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppSwitchInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/AppTextInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/inputs/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/orders/OrdersFilters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/locale/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/locale/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/locale/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/navigation/DoctorsNavigator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/navigation/DrawerNavigator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/navigation/DriversNavigator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/navigation/OrdersNavigator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/providers/restProvider.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sandbox/Collapsible.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sandbox/FormInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sandbox/OrderCreateScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/doctors/DoctorCreateScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/doctors/DoctorEditScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/doctors/DoctorScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/doctors/Doctors.style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/doctors/DoctorsScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/drivers/DriverCreateScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/drivers/DriverEditScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/drivers/DriverScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/drivers/Drivers.style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/drivers/DriversScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/orders/OrderCreateScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/orders/OrderEditScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/orders/OrderScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/orders/Orders.style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens/orders/OrdersScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/likar-plus-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/likar-plus-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navigation/MainNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/MainNavigator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/MainScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MainScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/theme/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/theme/theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +79,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
   <component name="ProjectId" id="1lvsvw9AiGfBJzVEzfiqbVU3XaQ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -35,6 +101,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
@@ -44,20 +111,28 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.stylelint" value="" />
+    <property name="node.js.selected.package.stylelint" value="D:\work\likar-plus-app\node_modules\stylelint" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="styled-components" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.1.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\work\likar-plus-app\navigation" />
-      <recent name="D:\work\likar-plus-app\containers" />
+      <recent name="D:\work\likar-plus-app\components" />
+      <recent name="D:\work\likar-plus-app\screens" />
+      <recent name="D:\work\likar-plus-app\screens\doctors" />
+      <recent name="D:\work\likar-plus-app\sandbox" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\work\likar-plus-app" />
+      <recent name="D:\work\likar-plus-app\components\orders" />
+      <recent name="D:\work\likar-plus-app\screens\orders" />
       <recent name="D:\work\likar-plus-app\containers" />
+      <recent name="D:\work\likar-plus-app\screens\orders\create" />
+      <recent name="D:\work\likar-plus-app" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -68,11 +143,42 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608489133719</updated>
-      <workItem from="1608489134936" duration="2634000" />
+      <workItem from="1608489134936" duration="3473000" />
+      <workItem from="1608576262068" duration="10107000" />
+      <workItem from="1608634652967" duration="15459000" />
+      <workItem from="1608812991653" duration="14857000" />
+      <workItem from="1608911148889" duration="485000" />
+      <workItem from="1608911645881" duration="4725000" />
+      <workItem from="1609236521174" duration="17282000" />
+      <workItem from="1609337565089" duration="1590000" />
+      <workItem from="1609339956712" duration="14802000" />
+      <workItem from="1609414890647" duration="3091000" />
+      <workItem from="1609767859218" duration="11780000" />
+      <workItem from="1609842710126" duration="21199000" />
+      <workItem from="1609943638913" duration="13000" />
+      <workItem from="1611059427779" duration="1094000" />
+      <workItem from="1611060885835" duration="1526000" />
+      <workItem from="1611142684208" duration="18933000" />
+      <workItem from="1611223666269" duration="599000" />
+      <workItem from="1611239121793" duration="15122000" />
+      <workItem from="1611314381253" duration="18171000" />
+      <workItem from="1612182820547" duration="33000" />
+      <workItem from="1612182891591" duration="1940000" />
+      <workItem from="1612795982506" duration="24000" />
+      <workItem from="1612802552303" duration="46000" />
+      <workItem from="1612802708060" duration="731000" />
+      <workItem from="1612967369591" duration="2375000" />
+      <workItem from="1613415061083" duration="32000" />
+      <workItem from="1614268927558" duration="7966000" />
+      <workItem from="1614359064909" duration="5951000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
