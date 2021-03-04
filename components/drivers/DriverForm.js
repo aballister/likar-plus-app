@@ -1,55 +1,46 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform,
+    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import FormInput from '../../components/FormInput';
 import drfProvider from '../../providers/restProvider';
-import CustomHeaderButton from '../../components/CustomHeaderButton';
+import FormInput from '../FormInput/FormInput';
+import { translate } from '../../locale';
+import { requestErrorHandler } from '../../utils';
+import useHeaderSaveButton from '../../hooks/useHeaderSaveButton';
 
-export default function DriverEditScreen({ route, navigation }) {
+export default function DriverForm({ route, navigation }) {
+    const { driver } = route.params;
+    let defaultValues = {};
+    let method = 'POST';
+    let url = 'drivers';
+    let requestCallback = () => navigation.navigate('Drivers');
+    if (Object.keys(driver).length) {
+        method = 'PATCH';
+        url = `drivers/${driver.id}`;
+        requestCallback = updatedDriver => navigation.navigate('Driver', {
+            driver: updatedDriver,
+        });
+        defaultValues = {
+            ...driver,
+            birthday: new Date(driver.birthday),
+        };
+    }
+
     const {
         control, handleSubmit, errors,
     } = useForm({
-        defaultValues: {
-            ...route.params.driver,
-            birthday: new Date(route.params.driver.birthday),
-        },
+        defaultValues,
     });
 
-    const onSubmit = (data) => {
-        const url = `drivers/${route.params.driver.id}`;
-        drfProvider('PATCH', url, data, '')
-            .then(() => {
-                navigation.goBack();
-            }).catch((error) => {
-                Alert.alert(
-                    'Some shit happened',
-                    `${error.status}`,
-                    [
-                        {
-                            text: 'OK',
-                        },
-                    ],
-                );
-            });
-    };
+    function submitHandler(data) {
+        drfProvider(method, url, data, '')
+            .then(requestCallback)
+            .catch(requestErrorHandler);
+    }
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                    <Item
-                        iconName='save'
-                        onPress={handleSubmit(onSubmit)}
-                        title='Save'
-                    />
-                </HeaderButtons>
-            ),
-        });
-    }, [navigation]);
+    useHeaderSaveButton(handleSubmit(submitHandler));
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -135,8 +126,8 @@ export default function DriverEditScreen({ route, navigation }) {
                         name='comment'
                     />
                     <Button
-                        onPress={handleSubmit(onSubmit)}
-                        title='Зберегти'
+                        onPress={handleSubmit(submitHandler)}
+                        title={translate('form.save')}
                     />
                 </KeyboardAvoidingView>
             </ScrollView>
@@ -144,7 +135,7 @@ export default function DriverEditScreen({ route, navigation }) {
     );
 }
 
-DriverEditScreen.propTypes = {
+DriverForm.propTypes = {
     navigation: PropTypes.object.isRequired,
     route: PropTypes.object.isRequired,
 };

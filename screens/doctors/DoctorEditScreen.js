@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import FormInput from '../../components/FormInput';
+import FormInput from '../../components/FormInput/FormInput';
 import drfProvider from '../../providers/restProvider';
 import CustomHeaderButton from '../../components/CustomHeaderButton';
 

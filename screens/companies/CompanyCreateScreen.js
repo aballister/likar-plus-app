@@ -1,23 +1,24 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform,
+    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform, Text,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import FormInput from '../../components/FormInput/FormInput';
 import drfProvider from '../../providers/restProvider';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../../components/CustomHeaderButton';
 
-export default function OrderCreateScreen({ navigation, route }) {
+export default function CompanyCreateScreen({ navigation }) {
     const {
-        control, handleSubmit, errors, getValues, clearErrors, watch,
+        control, handleSubmit, errors, clearErrors, watch,
     } = useForm();
+
     const onSubmit = (data) => {
-        const url = 'orders';
-        drfProvider('POST', url, { ...data, orderType: route.params.orderType, status: 'new' }, '')
+        const url = 'companies';
+        drfProvider('POST', url, data, '')
             .then(() => {
-                navigation.navigate('Orders');
+                navigation.navigate('Companies');
             }).catch((error) => {
                 Alert.alert(
                     'Some shit happened',
@@ -45,12 +46,6 @@ export default function OrderCreateScreen({ navigation, route }) {
         });
     }, [navigation]);
 
-    useEffect(() => {
-        if (watch('customer') === 'private') {
-            clearErrors('guarantor');
-        }
-    }, [watch('customer')]);
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
@@ -61,40 +56,39 @@ export default function OrderCreateScreen({ navigation, route }) {
                 >
                     <FormInput
                         control={control}
-                        error={errors.orderStatus}
-                        label='Тип замовлення'
-                        name='orderStatus'
-                        options={[{ label: 'Нове', value: 'new' }, { label: 'Повторне', value: 'repeat' }]}
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        defaultValue={new Date()}
-                        error={errors.orderDate}
-                        label='Дата виконання'
-                        name='orderDate'
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='date'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.lastName}
-                        label='Прізвище'
-                        name='lastName'
+                        error={errors.name}
+                        label='Назва'
+                        name='name'
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
                     />
                     <FormInput
                         control={control}
-                        error={errors.firstName}
-                        label='Ім’я'
-                        name='firstName'
+                        error={errors.phone}
+                        keyboardType='phone-pad'
+                        label='Гаряча лінія'
+                        name='phone'
+                        rules={{ required: 'Поле обов’язкове для заповнення' }}
+                        type='phone'
+                    />
+                    <FormInput
+                        control={control}
+                        keyboardType='phone-pad'
+                        label='Додатковий номер телефону'
+                        name='phone2'
+                        type='phone'
+                    />
+                    <FormInput
+                        control={control}
+                        error={errors.contract}
+                        label='Номер договору'
+                        name='contract'
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
                     />
                     <FormInput
                         control={control}
-                        label='По-батькові'
-                        name='middleName'
+                        label='Договір'
+                        name='contract'
+                        type='document'
                     />
                     <FormInput
                         control={control}
@@ -131,122 +125,62 @@ export default function OrderCreateScreen({ navigation, route }) {
                     />
                     <FormInput
                         control={control}
-                        defaultValue='1'
-                        error={errors.entrance}
-                        keyboardType='numeric'
-                        label='Під’їзд'
-                        name='entrance'
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.floor}
                         keyboardType='numeric'
                         label='Поверх'
                         name='floor'
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
                     />
                     <FormInput
                         control={control}
                         error={errors.flat}
                         keyboardType='numeric'
-                        label='Квартира'
+                        label='Квартира/офіс'
                         name='flat'
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
                     />
+                    <Text>Контактна особа:</Text>
                     <FormInput
                         control={control}
-                        error={errors.phone}
+                        error={errors.lastName}
+                        label='Прізвище'
+                        name='lastName'
+                        rules={{ required: 'Поле обов’язкове для заповнення' }}
+                    />
+                    <FormInput
+                        control={control}
+                        error={errors.firstName}
+                        label='Ім’я'
+                        name='firstName'
+                        rules={{ required: 'Поле обов’язкове для заповнення' }}
+                    />
+                    <FormInput
+                        control={control}
+                        label='По-батькові'
+                        name='middleName'
+                    />
+                    <FormInput
+                        control={control}
+                        error={errors.position}
+                        label='Посада'
+                        name='position'
+                        rules={{ required: 'Поле обов’язкове для заповнення' }}
+                    />
+                    <FormInput
+                        control={control}
+                        error={errors.managerPhone}
                         keyboardType='phone-pad'
                         label='Контактний телефон'
-                        name='phone'
+                        name='managerPhone'
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
                         type='phone'
                     />
                     <FormInput
                         control={control}
-                        keyboardType='phone-pad'
-                        label='Додатковий номер телефону'
-                        name='phone2'
-                        type='phone'
-                    />
-                    <FormInput
-                        control={control}
-                        defaultValue={new Date()}
-                        error={errors.birthday}
-                        label='Дата народження'
-                        name='birthday'
+                        error={errors.email}
+                        keyboardType='email-address'
+                        label='E-mail'
+                        name='email'
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='date'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.customer}
-                        label='Замовник'
-                        name='customer'
-                        options={[{ label: '', value: '' }, { label: 'Уніка', value: 'unica' }, { label: 'АСКА', value: 'aska' }, { label: 'Приватний', value: 'private' }]}
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.guarantor}
-                        label='Гарант'
-                        name='guarantor'
-                        rules={{
-                            validate: (value) => {
-                                let error;
-                                if (getValues('customer') !== 'private' && value.length === 0) {
-                                    error = 'Поле обов’язкове для заповнення';
-                                }
-                                return error;
-                            },
-                        }}
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.insurance}
-                        label='Поліс'
-                        name='insurance'
-                    />
-                    <FormInput
-                        control={control}
-                        defaultValue={false}
-                        label='Франшиза'
-                        name='franchise'
-                        type='switch'
-                    />
-                    {
-                        watch('franchise') ?
-                            <FormInput
-                                control={control}
-                                error={errors.franchiseValue}
-                                name='franchiseValue'
-                                rules={{ required: 'Поле обов’язкове для заповнення' }}
-                            /> :
-                            null
-                    }
-                    <FormInput
-                        control={control}
-                        defaultValue={false}
-                        label='Лікарняний листок'
-                        name='sickLeave'
-                        type='switch'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.doctor}
-                        label='Лікар'
-                        name='doctor'
-                        options={[{ label: '', value: '' }, { label: 'Охтень', value: '1' }, { label: 'Бочаров', value: '2' }, { label: 'Петренко', value: '3' }]}
-                        type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.doctorBonus}
-                        keyboardType='decimal-pad'
-                        label='Бонус лікарю'
-                        name='doctorBonus'
+                        type='email'
                     />
                     <FormInput
                         control={control}
@@ -265,7 +199,7 @@ export default function OrderCreateScreen({ navigation, route }) {
     );
 }
 
-OrderCreateScreen.propTypes = {
+CompanyCreateScreen.propTypes = {
     navigation: PropTypes.object.isRequired,
     route: PropTypes.object.isRequired,
 };

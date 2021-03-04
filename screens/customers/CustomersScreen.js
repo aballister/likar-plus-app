@@ -14,20 +14,20 @@ import { SearchBar } from 'react-native-elements';
 import { Header, useHeaderHeight } from '@react-navigation/stack';
 import drfProvider from '../../providers/restProvider';
 import CustomHeaderButton from '../../components/CustomHeaderButton';
-import { DoctorItemView } from './Doctors.style';
 import AppTouchable from '../../components/AppTouchable';
-import DoctorsFilters from '../../components/doctors/DoctorsFilters';
+import CustomersFilters from '../../components/customers/CustomersFilters';
+import { CustomerItemView } from './Customers.style';
 import { translate } from '../../locale';
 import FiltersModal from '../../components/FiltersModal/FiltersModal';
 import NoResults from '../../components/NoResults/NoResults';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
-export default function DoctorsScreen({ navigation }) {
-    const [doctors, setDoctors] = useState([]);
+export default function CustomersScreen({ navigation }) {
+    const [customers, setCustomers] = useState([]);
     const [queryIsProcessing, setQueryIsProcessing] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filteredDoctors, setFilteredDoctors] = useState([]);
-    const [finalDoctors, setFinalDoctors] = useState([]);
+    const [filteredCustomers, setFilteredCustomers] = useState([]);
+    const [finalCustomers, setFinalCustomers] = useState([]);
     const [filters, setFilters] = useState({});
     const [filtersOpened, setFiltersOpened] = useState(false);
     const [searchBarOpened, setSearchBarOpened] = useState(false);
@@ -46,14 +46,14 @@ export default function DoctorsScreen({ navigation }) {
     function searchQueryHandler(text) {
         setQueryIsProcessing(true);
         if (text?.length > 1) {
-            const newData = filteredDoctors.filter((item) => {
+            const newData = filteredCustomers.filter((item) => {
                 const itemData = item.lastName.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             }).sort((a, b) => new Date(b.lastName) - new Date(a.lastName));
-            setFinalDoctors(newData);
+            setFinalCustomers(newData);
         } else {
-            setFinalDoctors(filteredDoctors);
+            setFinalCustomers(filteredCustomers);
         }
         setSearchQuery(text);
         setQueryIsProcessing(false);
@@ -67,22 +67,23 @@ export default function DoctorsScreen({ navigation }) {
     }
 
     useEffect(() => {
-        let newDoctors = doctors;
+        let newCustomers = customers;
         if (Object.keys(filters).length) {
             if (Object.values(filters.districts).find(el => el)) {
                 const trueDistricts = (Object.keys(filters.districts)
                     .filter(district => filters.districts[district]));
-                newDoctors = newDoctors.filter(el => Object.keys(el.districts)
+                newCustomers = newCustomers.filter(el => Object.keys(el.districts)
                     .filter(district => el.districts[district])
                     .some(district => trueDistricts.includes(district)));
             }
             if (filters.specialization) {
-                newDoctors = newDoctors.filter(el => el.specialization === filters.specialization);
+                newCustomers = newCustomers
+                    .filter(el => el.specialization === filters.specialization);
             }
-            newDoctors = newDoctors.sort((a, b) => new Date(b.lastName) - new Date(a.lastName));
+            newCustomers = newCustomers.sort((a, b) => new Date(b.lastName) - new Date(a.lastName));
         }
-        setFilteredDoctors(newDoctors);
-        setFinalDoctors(newDoctors);
+        setFilteredCustomers(newCustomers);
+        setFinalCustomers(newCustomers);
     }, [filters]);
 
     const headerHeight = useHeaderHeight();
@@ -123,7 +124,7 @@ export default function DoctorsScreen({ navigation }) {
                     />
                     <Item
                         iconName='add'
-                        onPress={() => navigation.navigate('DoctorCreate')}
+                        onPress={() => navigation.navigate('CustomerCreate')}
                         title='add'
                     />
                 </HeaderButtons>
@@ -131,19 +132,19 @@ export default function DoctorsScreen({ navigation }) {
         });
     }, [navigation, searchBarOpened, searchQuery]);
 
-    function getDoctors() {
-        console.log('doctors fetched');
+    function getCustomers() {
+        console.log('customers fetched');
         setIsLoading(true);
         setRefreshing(true);
-        drfProvider('GET', 'doctors')
+        drfProvider('GET', 'customers')
             .then((result) => {
-                const mappedResult = Object.keys(result).map(doctorId => ({
-                    id: doctorId,
-                    ...result[doctorId],
+                const mappedResult = Object.keys(result).map(customerId => ({
+                    id: customerId,
+                    ...result[customerId],
                 })).sort((a, b) => new Date(b.lastName) - new Date(a.lastName));
-                setDoctors(mappedResult);
-                setFilteredDoctors(mappedResult);
-                setFinalDoctors(mappedResult);
+                setCustomers(mappedResult);
+                setFilteredCustomers(mappedResult);
+                setFinalCustomers(mappedResult);
                 setIsLoading(false);
                 setRefreshing(false);
             })
@@ -161,28 +162,28 @@ export default function DoctorsScreen({ navigation }) {
     }
 
     useEffect(() => {
-        navigation.addListener('focus', getDoctors);
+        navigation.addListener('focus', getCustomers);
         return () => {
-            navigation.removeListener('focus', getDoctors);
+            navigation.removeListener('focus', getCustomers);
         };
     }, [navigation]);
 
     function renderItem({ item }) {
         function navigateTo() {
-            navigation.navigate('Doctor', {
-                doctor: item,
+            navigation.navigate('Customer', {
+                customer: item,
             });
         }
 
         return (
             <AppTouchable onPress={navigateTo}>
-                <DoctorItemView>
+                <CustomerItemView>
                     <View style={{ fontSize: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 10 }}>
-                            {`Спеціалізація: ${item.specialization}`}
+                            {item.company}
                         </Text>
                         <Text style={{ fontSize: 10 }}>
-                            {`Послуги: ${Object.keys(item.services).filter(service => item.services[service]).join(', ')}`}
+                            {item.insurance}
                         </Text>
                     </View>
                     <Text style={{ fontSize: 18 }}>
@@ -198,29 +199,12 @@ export default function DoctorsScreen({ navigation }) {
                             {item.phone}
                         </Text>
                     </View>
-                    {
-                        item.districts &&
-                        Object.keys(item.districts).length > 0 &&
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 130 }}>
-                                <Text>
-                                    Райони:
-                                </Text>
-                            </View>
-                            <Text>
-                                {
-                                    Object.keys(item.districts)
-                                        .filter(district => item.districts[district]).join(', ')
-                                }
-                            </Text>
-                        </View>
-                    }
-                </DoctorItemView>
+                </CustomerItemView>
             </AppTouchable>
         );
     }
 
-    if (!finalDoctors.length && isLoading) {
+    if (!finalCustomers.length && isLoading) {
         return (
             <LoadingIndicator />
         );
@@ -231,19 +215,19 @@ export default function DoctorsScreen({ navigation }) {
             <FiltersModal
                 filtersToggler={filtersToggler}
                 isVisible={filtersOpened}
-                title={translate('doctors.filterDoctors')}
+                title={translate('customers.filterCustomers')}
             >
-                <DoctorsFilters
+                <CustomersFilters
                     filters={filters}
                     filtersHandler={filtersHandler}
                 />
             </FiltersModal>
             {
-                !finalDoctors.length ?
+                !finalCustomers.length ?
                     <NoResults /> :
                     <FlatList
-                        data={finalDoctors}
-                        onRefresh={getDoctors}
+                        data={finalCustomers}
+                        onRefresh={getCustomers}
                         refreshing={refreshing}
                         renderItem={renderItem}
                     />
@@ -252,6 +236,6 @@ export default function DoctorsScreen({ navigation }) {
     );
 }
 
-DoctorsScreen.propTypes = {
+CustomersScreen.propTypes = {
     navigation: PropTypes.object.isRequired,
 };

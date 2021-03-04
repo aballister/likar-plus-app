@@ -4,7 +4,7 @@ import {
     ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
-import FormInput from '../../components/FormInput';
+import FormInput from '../../components/FormInput/FormInput';
 import drfProvider from '../../providers/restProvider';
 
 export default function DoctorCreateScreen({ navigation }) {

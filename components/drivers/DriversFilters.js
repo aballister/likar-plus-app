@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import isEqualWith from 'lodash.isequalwith';
-import FormInput from '../FormInput';
+import FormInput from '../FormInput/FormInput';
 import Collapsible from '../Collapsible';
 import dateComparison from '../../utils';
 

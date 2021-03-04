@@ -2,8 +2,7 @@ import React from 'react';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import DriversScreen from '../screens/drivers/DriversScreen';
 import DriverScreen from '../screens/drivers/DriverScreen';
-import DriverCreateScreen from '../screens/drivers/DriverCreateScreen';
-import DriverEditScreen from '../screens/drivers/DriverEditScreen';
+import DriverFormScreen from '../screens/drivers/DriverFormScreen';
 import theme from '../theme/theme';
 
 const DriversStackNavigator = createStackNavigator();
@@ -35,14 +34,14 @@ export default function DriversNavigator() {
                 }}
             />
             <DriversStackNavigator.Screen
-                component={DriverCreateScreen}
+                component={DriverFormScreen}
                 name='DriverCreate'
                 options={{
                     title: 'Новий водій',
                 }}
             />
             <DriversStackNavigator.Screen
-                component={DriverEditScreen}
+                component={DriverFormScreen}
                 name='DriverEdit'
                 options={{
                     title: 'Редагування водія',

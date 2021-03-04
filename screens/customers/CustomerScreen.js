@@ -8,16 +8,16 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { format } from 'date-fns';
 import CustomHeaderButton from '../../components/CustomHeaderButton';
 import drfProvider from '../../providers/restProvider';
-import { OrderItemView } from './Orders.style';
+import { CustomerItemView } from './Customers.style';
 import { translate } from '../../locale';
 
-export default function OrderScreen({ route, navigation }) {
-    const { order } = route.params;
+export default function CustomerScreen({ route, navigation }) {
+    const { customer } = route.params;
 
-    function removeOrderHandler() {
-        drfProvider('DELETE', `orders/${order.id}`)
+    function removeCustomerHandler() {
+        drfProvider('DELETE', `customers/${customer.id}`)
             .then(() => {
-                navigation.navigate('Orders');
+                navigation.navigate('Customer');
             })
             .catch((error) => {
                 Alert.alert(
@@ -38,22 +38,22 @@ export default function OrderScreen({ route, navigation }) {
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                     <Item
                         iconName='edit'
-                        onPress={() => navigation.navigate('OrderEdit', {
-                            order,
+                        onPress={() => navigation.navigate('CustomerEdit', {
+                            customer,
                         })}
                         title='Edit'
                     />
                     <Item
                         iconName='delete'
                         onPress={() => Alert.alert(
-                            'Видалити замовлення?',
-                            'Підтвердіть видалення замовлення',
+                            'Видалити клієнта?',
+                            'Підтвердіть видалення клієнта',
                             [
                                 {
                                     text: 'Відміна',
                                     style: 'cancel',
                                 },
-                                { text: 'Видалити', onPress: removeOrderHandler },
+                                { text: 'Видалити', onPress: removeCustomerHandler },
                             ],
                             { cancelable: false },
                         )}
@@ -66,17 +66,17 @@ export default function OrderScreen({ route, navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <OrderItemView>
+            <CustomerItemView>
                 <View style={{ fontSize: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: 10 }}>
-                        {`Статус: ${order.orderStatus}`}
+                        {customer.customer}
                     </Text>
                     <Text style={{ fontSize: 10 }}>
-                        {format(new Date(order.orderDate), 'dd.MM.yyyy')}
+                        {customer.insurance}
                     </Text>
                 </View>
                 <Text style={{ fontSize: 18 }}>
-                    {`${order.lastName} ${order.firstName} ${order.middleName}`}
+                    {`${customer.lastName} ${customer.firstName} ${customer.middleName}`}
                 </Text>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: 130 }}>
@@ -85,7 +85,7 @@ export default function OrderScreen({ route, navigation }) {
                         </Text>
                     </View>
                     <Text>
-                        {format(new Date(order.birthday), 'dd.MM.yyyy')}
+                        {format(new Date(customer.birthday), 'dd.MM.yyyy')}
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -95,11 +95,11 @@ export default function OrderScreen({ route, navigation }) {
                         </Text>
                     </View>
                     <Text>
-                        {order.phone}
+                        {customer.phone}
                     </Text>
                 </View>
                 {
-                    order.phone2 &&
+                    customer.phone2 &&
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: 130 }}>
                             <Text>
@@ -107,7 +107,7 @@ export default function OrderScreen({ route, navigation }) {
                             </Text>
                         </View>
                         <Text>
-                            {order.phone2}
+                            {customer.phone2}
                         </Text>
                     </View>
                 }
@@ -118,41 +118,11 @@ export default function OrderScreen({ route, navigation }) {
                         </Text>
                     </View>
                     <Text style={{ flex: 1 }}>
-                        {`${order.city}, ${translate(order.streetType)}. ${order.street}, буд. ${order.house}, під’їзд ${order.entrance}, поверх ${order.floor}, кв. ${order.flat}`}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Замовник:
-                        </Text>
-                    </View>
-                    <Text>
-                        {order.customer}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Гарант:
-                        </Text>
-                    </View>
-                    <Text>
-                        {order.guarantor}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Поліс:
-                        </Text>
-                    </View>
-                    <Text>
-                        {order.insurance}
+                        {`${customer.city}, ${translate(customer.streetType)}. ${customer.street}, буд. ${customer.house}, під’їзд ${customer.entrance}, поверх ${customer.floor}, кв. ${customer.flat}`}
                     </Text>
                 </View>
                 {
-                    order.franchise &&
+                    customer.franchise &&
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: 130 }}>
                             <Text>
@@ -160,40 +130,10 @@ export default function OrderScreen({ route, navigation }) {
                             </Text>
                         </View>
                         <Text>
-                            {order.franchiseValue}
+                            {customer.franchiseValue}
                         </Text>
                     </View>
                 }
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Лікар:
-                        </Text>
-                    </View>
-                    <Text>
-                        {order.doctor}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Бонус лікарю:
-                        </Text>
-                    </View>
-                    <Text>
-                        {order.doctorBonus}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Тип замовлення:
-                        </Text>
-                    </View>
-                    <Text>
-                        {translate(order.orderType)}
-                    </Text>
-                </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: 130 }}>
                         <Text>
@@ -201,15 +141,15 @@ export default function OrderScreen({ route, navigation }) {
                         </Text>
                     </View>
                     <Text>
-                        {order.comment}
+                        {customer.comment}
                     </Text>
                 </View>
-            </OrderItemView>
+            </CustomerItemView>
         </View>
     );
 }
 
-OrderScreen.propTypes = {
+CustomerScreen.propTypes = {
     navigation: PropTypes.object.isRequired,
     route: PropTypes.object.isRequired,
 };

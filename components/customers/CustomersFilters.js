@@ -8,13 +8,12 @@ import FormInput from '../FormInput/FormInput';
 import Collapsible from '../Collapsible';
 import dateComparison from '../../utils';
 
-export default function OrdersFilters({ filtersHandler, filters }) {
+export default function CustomersFilters({ filtersHandler, filters }) {
     const monthAgo = new Date(new Date().setMonth(-1));
     const defaultValues = {
         ordersDateStart: monthAgo,
         ordersDateEnd: new Date(),
         customer: { unica: false, aska: false },
-        orderType: { 'in-house': false, online: false, clinic: false },
     };
 
     const {
@@ -63,13 +62,6 @@ export default function OrdersFilters({ filtersHandler, filters }) {
                     <FormInput
                         control={control}
                         name='customer'
-                        type='checkboxGroup'
-                    />
-                </Collapsible>
-                <Collapsible title='Тип замовлення'>
-                    <FormInput
-                        control={control}
-                        name='orderType'
                         type='checkboxGroup'
                     />
                 </Collapsible>

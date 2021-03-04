@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 import { Text } from 'react-native';
-import inputs from './inputs';
+import inputs from '../inputs';
 import { FormInputView, InputView, InputWrapperView } from './FormInput.style';
 
 export default function FormInput(props) {

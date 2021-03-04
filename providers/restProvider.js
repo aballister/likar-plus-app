@@ -1,8 +1,8 @@
 import { apiUrl } from '../settings';
 
-export function drfProvider(type, url, body, token) {
+export function drfProvider(method, url, data, token) {
     const options = {
-        method: type,
+        method,
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -11,8 +11,8 @@ export function drfProvider(type, url, body, token) {
         },
     };
 
-    if (type === 'POST' || type === 'PUT' || type === 'PATCH') {
-        options.body = JSON.stringify(body);
+    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+        options.body = JSON.stringify(data);
     }
 
     return fetch(`${apiUrl}${url}.json`, options)
@@ -20,7 +20,7 @@ export function drfProvider(type, url, body, token) {
             if (!response.ok) {
                 throw response;
             }
-            return type !== 'DELETE' ? response.json() : response;
+            return method !== 'DELETE' ? response.json() : response;
         });
 }
 

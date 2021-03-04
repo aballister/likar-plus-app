@@ -8,6 +8,8 @@ import OrdersNavigator from './OrdersNavigator';
 import DoctorsNavigator from './DoctorsNavigator';
 import Icon from '../components/Icon';
 import DriversNavigator from './DriversNavigator';
+import CompaniesNavigator from './CompaniesNavigator';
+import CustomersNavigator from './CustomersNavigator';
 
 const AppDrawerNavigator = createDrawerNavigator();
 
@@ -47,6 +49,21 @@ export default function DrawerNavigator() {
                 }}
             />
             <AppDrawerNavigator.Screen
+                component={CustomersNavigator}
+                name='Customers'
+                options={{
+                    title: 'Клієнти',
+                    // eslint-disable-next-line react/prop-types
+                    drawerIcon: ({ color }) => (
+                        <Icon
+                            color={color}
+                            name='people'
+                            size={23}
+                        />
+                    ),
+                }}
+            />
+            <AppDrawerNavigator.Screen
                 component={DoctorsNavigator}
                 name='Doctors'
                 options={{
@@ -55,7 +72,7 @@ export default function DrawerNavigator() {
                     drawerIcon: ({ color }) => (
                         <Icon
                             color={color}
-                            name='people'
+                            name='medical-services'
                             size={23}
                         />
                     ),
@@ -71,6 +88,21 @@ export default function DrawerNavigator() {
                         <Icon
                             color={color}
                             name='directions-car'
+                            size={23}
+                        />
+                    ),
+                }}
+            />
+            <AppDrawerNavigator.Screen
+                component={CompaniesNavigator}
+                name='Companies'
+                options={{
+                    title: 'Страхові компанії',
+                    // eslint-disable-next-line react/prop-types
+                    drawerIcon: ({ color }) => (
+                        <Icon
+                            color={color}
+                            name='business-center'
                             size={23}
                         />
                     ),

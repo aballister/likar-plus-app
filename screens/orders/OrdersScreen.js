@@ -6,10 +6,7 @@ import {
     FlatList,
     ActivityIndicator,
     Alert,
-    ScrollView,
-    Platform, TouchableNativeFeedback,
 } from 'react-native';
-import Modal from 'react-native-modal';
 import {
     HeaderButtons, HiddenItem, Item, OverflowMenu,
 } from 'react-navigation-header-buttons';
@@ -24,7 +21,9 @@ import Icon from '../../components/Icon';
 import { OrderItemView } from './Orders.style';
 import AppTouchable from '../../components/AppTouchable';
 import { translate } from '../../locale';
-import TouchableIcon from '../../components/TouchableIcon';
+import FiltersModal from '../../components/FiltersModal/FiltersModal';
+import NoResults from '../../components/NoResults/NoResults';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
 export default function OrdersScreen({ navigation }) {
     const [orders, setOrders] = useState([]);
@@ -47,6 +46,22 @@ export default function OrdersScreen({ navigation }) {
         setFiltersOpened(state => !state);
     }
 
+    function searchQueryHandler(text) {
+        setQueryIsProcessing(true);
+        if (text?.length > 1) {
+            const newData = filteredOrders.filter((item) => {
+                const itemData = item.lastName.toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf(textData) > -1;
+            }).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+            setFinalOrders(newData);
+        } else {
+            setFinalOrders(filteredOrders);
+        }
+        setSearchQuery(text);
+        setQueryIsProcessing(false);
+    }
+
     function searchBarToggler() {
         if (searchBarOpened) {
             searchQueryHandler();
@@ -59,7 +74,10 @@ export default function OrdersScreen({ navigation }) {
         if (Object.keys(filters).length) {
             if (filters.ordersDateStart && filters.ordersDateEnd) {
                 newOrders = orders
-                    .filter(el => new Date(el.orderDate).setHours(0, 0, 0, 0) >= new Date(filters.ordersDateStart).setHours(0, 0, 0, 0) && new Date(el.orderDate).setHours(0, 0, 0, 0) <= new Date(filters.ordersDateEnd).setHours(0, 0, 0, 0));
+                    .filter(el => new Date(el.orderDate).setHours(0, 0, 0, 0) >=
+                        new Date(filters.ordersDateStart).setHours(0, 0, 0, 0) &&
+                        new Date(el.orderDate).setHours(0, 0, 0, 0) <=
+                        new Date(filters.ordersDateEnd).setHours(0, 0, 0, 0));
             }
             if (Object.values(filters.customer).find(el => el)) {
                 newOrders = newOrders.filter(el => filters.customer[el.customer]);
@@ -74,64 +92,21 @@ export default function OrdersScreen({ navigation }) {
     useLayoutEffect(() => {
         navigation.setOptions({
             header: headerProps => (searchBarOpened ?
-                <View style={{
-                    height: headerHeight,
-                    paddingTop: headerProps.insets.top + 4,
-                    paddingBottom: 5,
-                    backgroundColor: theme.colors.primary,
-                    paddingHorizontal: 5,
-                }}
-                >
-                    <SearchBar
-                        autoFocus
-                        cancelIcon={
-                            <TouchableIcon
-                                containerStyle={{
-                                    marginLeft: -5,
-                                    marginRight: -4,
-                                }}
-                                name='arrow-back'
-                                onPress={searchBarToggler}
-                                size={36}
-                                touchableProps={{
-                                    activeOpacity: 0.3,
-                                    background: TouchableNativeFeedback.Ripple('rgba(0,0,0,.2)'),
-                                }}
-                            />
-                        }
-                        containerStyle={{
-                            color: '#fff', height: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 0, borderRadius: 3, overflow: 'hidden', paddingHorizontal: 0,
-                        }}
-                        loadingProps={{ color: 'rgba(0, 0, 0, 0.54)' }}
-                        onChangeText={searchQueryHandler}
-                        placeholder='Пошук за прізвищем'
-                        platform={Platform.OS}
-                        returnKeyType='search'
-                        searchIcon={
-                            <TouchableIcon
-                                containerStyle={{
-                                    marginLeft: -5,
-                                    marginRight: -4,
-                                }}
-                                name='arrow-back'
-                                onPress={searchBarToggler}
-                                size={36}
-                                touchableProps={{
-                                    activeOpacity: 0.3,
-                                    background: TouchableNativeFeedback.Ripple('rgba(0,0,0,.2)'),
-                                }}
-                            />
-                        }
-                        showLoading={queryIsProcessing}
-                        value={searchQuery}
-                    />
-                </View> :
+                <SearchBar
+                    headerHeight={headerHeight}
+                    headerTop={headerProps.insets.top}
+                    placeholder={translate('form.searchByLastName')}
+                    queryIsProcessing={queryIsProcessing}
+                    searchBarToggler={searchBarToggler}
+                    searchQuery={searchQuery}
+                    searchQueryHandler={searchQueryHandler}
+                /> :
                 <Header {...headerProps} />),
-            headerLeft: props => (
+            headerLeft: () => (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                     <Item
                         iconName='menu'
-                        onPress={() => navigation.toggleDrawer()}
+                        onPress={navigation.toggleDrawer}
                         title='Menu'
                     />
                 </HeaderButtons>
@@ -224,22 +199,6 @@ export default function OrdersScreen({ navigation }) {
             });
     }
 
-    function searchQueryHandler(text) {
-        setQueryIsProcessing(true);
-        if (text?.length > 1) {
-            const newData = filteredOrders.filter((item) => {
-                const itemData = item.lastName.toUpperCase();
-                const textData = text.toUpperCase();
-                return itemData.indexOf(textData) > -1;
-            }).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-            setFinalOrders(newData);
-        } else {
-            setFinalOrders(filteredOrders);
-        }
-        setSearchQuery(text);
-        setQueryIsProcessing(false);
-    }
-
     useEffect(() => {
         navigation.addListener('focus', getOrders);
         return () => {
@@ -325,46 +284,25 @@ export default function OrdersScreen({ navigation }) {
 
     if (!finalOrders.length && isLoading) {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator
-                    color='#000000'
-                    size='large'
-                />
-            </View>
+            <LoadingIndicator />
         );
     }
 
     return (
         <View>
-            <Modal
-                animationIn='slideInRight'
-                animationOut='slideOutRight'
+            <FiltersModal
+                filtersToggler={filtersToggler}
                 isVisible={filtersOpened}
-                onBackdropPress={filtersToggler}
-                onSwipeComplete={filtersToggler}
-                style={{ margin: 0, alignItems: 'flex-end' }}
-                swipeDirection='right'
+                title={translate('orders.filterOrders')}
             >
-                <View style={{ flex: 1, width: 280, backgroundColor: 'white' }}>
-                    <ScrollView contentContainerStyle={{ flex: 1 }}>
-                        <View style={{
-                            flexDirection: 'row', justifyContent: 'center', padding: 10, position: 'relative',
-                        }}
-                        >
-                            <Text>Фільтрувати замовлення</Text>
-                        </View>
-                        <OrdersFilters
-                            filters={filters}
-                            filtersHandler={filtersHandler}
-                        />
-                    </ScrollView>
-                </View>
-            </Modal>
+                <OrdersFilters
+                    filters={filters}
+                    filtersHandler={filtersHandler}
+                />
+            </FiltersModal>
             {
                 !finalOrders.length ?
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>Нічого не знайдено</Text>
-                    </View> :
+                    <NoResults /> :
                     <FlatList
                         data={finalOrders}
                         onRefresh={getOrders}

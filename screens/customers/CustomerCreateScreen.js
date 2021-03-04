@@ -1,23 +1,23 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform,
+    ScrollView, Button, SafeAreaView, KeyboardAvoidingView, Alert, Platform, Text,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import FormInput from '../../components/FormInput/FormInput';
 import drfProvider from '../../providers/restProvider';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../../components/CustomHeaderButton';
 
-export default function OrderCreateScreen({ navigation, route }) {
+export default function CustomerCreateScreen({ navigation }) {
     const {
-        control, handleSubmit, errors, getValues, clearErrors, watch,
+        control, handleSubmit, errors, clearErrors, watch,
     } = useForm();
     const onSubmit = (data) => {
-        const url = 'orders';
-        drfProvider('POST', url, { ...data, orderType: route.params.orderType, status: 'new' }, '')
+        const url = 'customers';
+        drfProvider('POST', url, data, '')
             .then(() => {
-                navigation.navigate('Orders');
+                navigation.navigate('Customers');
             }).catch((error) => {
                 Alert.alert(
                     'Some shit happened',
@@ -45,12 +45,6 @@ export default function OrderCreateScreen({ navigation, route }) {
         });
     }, [navigation]);
 
-    useEffect(() => {
-        if (watch('customer') === 'private') {
-            clearErrors('guarantor');
-        }
-    }, [watch('customer')]);
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
@@ -59,24 +53,6 @@ export default function OrderCreateScreen({ navigation, route }) {
                     keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
                     style={{ flex: 1, padding: 10 }}
                 >
-                    <FormInput
-                        control={control}
-                        error={errors.orderStatus}
-                        label='Тип замовлення'
-                        name='orderStatus'
-                        options={[{ label: 'Нове', value: 'new' }, { label: 'Повторне', value: 'repeat' }]}
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        defaultValue={new Date()}
-                        error={errors.orderDate}
-                        label='Дата виконання'
-                        name='orderDate'
-                        rules={{ required: 'Поле обов’язкове для заповнення' }}
-                        type='date'
-                    />
                     <FormInput
                         control={control}
                         error={errors.lastName}
@@ -181,27 +157,12 @@ export default function OrderCreateScreen({ navigation, route }) {
                     />
                     <FormInput
                         control={control}
-                        error={errors.customer}
-                        label='Замовник'
-                        name='customer'
+                        error={errors.company}
+                        label='Страхова компанія'
+                        name='company'
                         options={[{ label: '', value: '' }, { label: 'Уніка', value: 'unica' }, { label: 'АСКА', value: 'aska' }, { label: 'Приватний', value: 'private' }]}
                         rules={{ required: 'Поле обов’язкове для заповнення' }}
                         type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.guarantor}
-                        label='Гарант'
-                        name='guarantor'
-                        rules={{
-                            validate: (value) => {
-                                let error;
-                                if (getValues('customer') !== 'private' && value.length === 0) {
-                                    error = 'Поле обов’язкове для заповнення';
-                                }
-                                return error;
-                            },
-                        }}
                     />
                     <FormInput
                         control={control}
@@ -228,28 +189,6 @@ export default function OrderCreateScreen({ navigation, route }) {
                     }
                     <FormInput
                         control={control}
-                        defaultValue={false}
-                        label='Лікарняний листок'
-                        name='sickLeave'
-                        type='switch'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.doctor}
-                        label='Лікар'
-                        name='doctor'
-                        options={[{ label: '', value: '' }, { label: 'Охтень', value: '1' }, { label: 'Бочаров', value: '2' }, { label: 'Петренко', value: '3' }]}
-                        type='picker'
-                    />
-                    <FormInput
-                        control={control}
-                        error={errors.doctorBonus}
-                        keyboardType='decimal-pad'
-                        label='Бонус лікарю'
-                        name='doctorBonus'
-                    />
-                    <FormInput
-                        control={control}
                         error={errors.comment}
                         label='Коментар'
                         multiline
@@ -265,7 +204,7 @@ export default function OrderCreateScreen({ navigation, route }) {
     );
 }
 
-OrderCreateScreen.propTypes = {
+CustomerCreateScreen.propTypes = {
     navigation: PropTypes.object.isRequired,
     route: PropTypes.object.isRequired,
 };
