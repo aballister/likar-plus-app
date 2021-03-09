@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import {
-    View,
-    FlatList,
-} from 'react-native';
+import { View, FlatList } from 'react-native';
 import { translate } from '../../locale';
 import FiltersModal from '../../components/FiltersModal/FiltersModal';
 import DriversFilters from '../../components/drivers/DriversFilters';
 import NoResults from '../../components/NoResults/NoResults';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import DriverThumb from '../../components/drivers/DriverThumb';
 import useFetchOnFocus from '../../hooks/useFetchOnFocus';
 import useHeaderMenuButton from '../../hooks/useHeaderMenuButton';
-import useHeaderRightButtons from '../../hooks/useHeaderRightButtons';
+import useHeaderListButtons from '../../hooks/useHeaderListButtons';
 import useFetch from '../../hooks/useFetch';
 import useHeaderSearchBar from '../../hooks/useHeaderSearchBar';
 import useFilters from '../../hooks/useFilters';
+import ListItem from '../../components/ListItem/ListItem';
+import useSettings from '../../hooks/useSettings';
 
 export default function DriversScreen() {
+    const settings = useSettings();
     const [filters, setFilters] = useState({});
     const [filtersOpened, setFiltersOpened] = useState(false);
 
@@ -30,24 +28,35 @@ export default function DriversScreen() {
         setFiltersOpened(state => !state);
     }
 
-    function sortResult(a, b) {
+    function sortFunction(a, b) {
         if (a.lastName < b.lastName) return -1;
         if (a.lastName > b.lastName) return 1;
         return 0;
     }
 
-    const [result, fetchApi, isLoading] = useFetch('drivers');
-    const [searchResult, searchBarToggler] = useHeaderSearchBar(result, 'lastName');
-    const [filteredResult] = useFilters(searchResult, filters, sortResult);
+    const [result, fetchApi, isLoading] = useFetch(settings.resource);
+    const [searchResult, searchBarToggler] = useHeaderSearchBar(result, settings.searchKey);
+    const [filteredResult] = useFilters(searchResult, filters, sortFunction);
 
     useFetchOnFocus(fetchApi);
     useHeaderMenuButton();
-    useHeaderRightButtons(
-        'DriverCreate',
+    useHeaderListButtons(
+        settings.create.screen,
         searchBarToggler,
         filtersToggler,
         Object.keys(filters).length > 0,
     );
+
+    function renderItem({ item }) {
+        return (
+            <ListItem
+                fields={settings.list.fields}
+                item={item}
+                routeTo={settings.page.screen}
+                title={settings.list.titleFields}
+            />
+        );
+    }
 
     if (!filteredResult.length && isLoading) {
         return (
@@ -60,7 +69,7 @@ export default function DriversScreen() {
             <FiltersModal
                 filtersToggler={filtersToggler}
                 isVisible={filtersOpened}
-                title={translate('drivers.filterDrivers')}
+                title={translate(settings.filter.title)}
             >
                 <DriversFilters
                     filters={filters}
@@ -74,15 +83,9 @@ export default function DriversScreen() {
                         data={filteredResult}
                         onRefresh={fetchApi}
                         refreshing={isLoading}
-                        renderItem={({ item }) => (
-                            <DriverThumb item={item} />
-                        )}
+                        renderItem={renderItem}
                     />
             }
         </View>
     );
 }
-
-DriversScreen.propTypes = {
-    navigation: PropTypes.object.isRequired,
-};

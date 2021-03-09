@@ -3,7 +3,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useNavigation } from '@react-navigation/native';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 
-export default function useHeaderRightButtons() {
+export default function useHeaderListButtons() {
     const [createScreen, searchBarToggler, filtersToggler, hasBadge] = arguments;
     const navigation = useNavigation();
 

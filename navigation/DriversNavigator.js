@@ -4,49 +4,54 @@ import DriversScreen from '../screens/drivers/DriversScreen';
 import DriverScreen from '../screens/drivers/DriverScreen';
 import DriverFormScreen from '../screens/drivers/DriverFormScreen';
 import theme from '../theme/theme';
+import { translate } from '../locale';
+import { SettingsContext } from '../context';
+import settings from '../components/drivers/settings';
 
 const DriversStackNavigator = createStackNavigator();
 
 export default function DriversNavigator() {
     return (
-        <DriversStackNavigator.Navigator
-            screenOptions={{
-                ...TransitionPresets.SlideFromRightIOS,
-                gestureEnabled: true,
-                headerTintColor: theme.colors.white,
-                headerStyle: {
-                    backgroundColor: '#4a148c',
-                },
-            }}
-        >
-            <DriversStackNavigator.Screen
-                component={DriversScreen}
-                name='Drivers'
-                options={{
-                    title: 'Водії',
+        <SettingsContext.Provider value={settings}>
+            <DriversStackNavigator.Navigator
+                screenOptions={{
+                    ...TransitionPresets.SlideFromRightIOS,
+                    gestureEnabled: true,
+                    headerTintColor: theme.colors.white,
+                    headerStyle: {
+                        backgroundColor: theme.colors.primary,
+                    },
                 }}
-            />
-            <DriversStackNavigator.Screen
-                component={DriverScreen}
-                name='Driver'
-                options={{
-                    title: 'Водій',
-                }}
-            />
-            <DriversStackNavigator.Screen
-                component={DriverFormScreen}
-                name='DriverCreate'
-                options={{
-                    title: 'Новий водій',
-                }}
-            />
-            <DriversStackNavigator.Screen
-                component={DriverFormScreen}
-                name='DriverEdit'
-                options={{
-                    title: 'Редагування водія',
-                }}
-            />
-        </DriversStackNavigator.Navigator>
+            >
+                <DriversStackNavigator.Screen
+                    component={DriversScreen}
+                    name={settings.list.screen}
+                    options={{
+                        title: translate(settings.list.title),
+                    }}
+                />
+                <DriversStackNavigator.Screen
+                    component={DriverScreen}
+                    name={settings.page.screen}
+                    options={{
+                        title: translate(settings.page.title),
+                    }}
+                />
+                <DriversStackNavigator.Screen
+                    component={DriverFormScreen}
+                    name={settings.create.screen}
+                    options={{
+                        title: translate(settings.create.title),
+                    }}
+                />
+                <DriversStackNavigator.Screen
+                    component={DriverFormScreen}
+                    name={settings.edit.screen}
+                    options={{
+                        title: translate(settings.edit.title),
+                    }}
+                />
+            </DriversStackNavigator.Navigator>
+        </SettingsContext.Provider>
     );
 }

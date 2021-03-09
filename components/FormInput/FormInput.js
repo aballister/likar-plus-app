@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Text } from 'react-native';
 import inputs from '../inputs';
 import { FormInputView, InputView, InputWrapperView } from './FormInput.style';
+import { translate } from '../../locale';
 
-export default function FormInput(props) {
-    const {
-        control, name, rules, defaultValue, error, returnKeyType, type,
-        label, ...rest
-    } = props;
+export default function FormInput({ name, field, ...rest }) {
+    const { control, errors } = useFormContext();
 
-    const Input = inputs[type];
+    const Input = inputs[field.fieldType ?? 'text'];
+
+    const label = !field.noLabel ? translate(`form.${name}`) : '';
+
+    let rules;
+    if (field.validation?.length) {
+        rules = {
+            required: translate('validation.required'),
+        };
+    }
 
     return (
         <FormInputView>
             {
-                label.length > 0 &&
+                label &&
                 <Text>
                     {label}
                 </Text>
@@ -24,14 +31,15 @@ export default function FormInput(props) {
             <InputWrapperView>
                 <Controller
                     control={control}
-                    defaultValue={defaultValue}
+                    defaultValue={field.defaultValue ?? ''}
                     name={name}
                     render={({ onChange, onBlur, value }) => (
                         <InputView
                             as={Input}
+                            keyboardType={field.keyboardType}
                             onBlur={onBlur}
                             onChange={onChange}
-                            returnKeyType={returnKeyType}
+                            returnKeyType={field.returnKeyType ?? 'done'}
                             value={value}
                             {...rest}
                         />
@@ -39,9 +47,9 @@ export default function FormInput(props) {
                     rules={rules}
                 />
                 {
-                    error &&
+                    errors[name] &&
                     <Text>
-                        {error.message}
+                        {errors[name].message}
                     </Text>
                 }
             </InputWrapperView>
@@ -50,23 +58,6 @@ export default function FormInput(props) {
 }
 
 FormInput.propTypes = {
-    control: PropTypes.object.isRequired,
+    field: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
-    defaultValue: PropTypes.oneOfType([
-        PropTypes.string, PropTypes.bool, PropTypes.object, PropTypes.instanceOf(Date),
-    ]),
-    error: PropTypes.object,
-    label: PropTypes.string,
-    returnKeyType: PropTypes.string,
-    rules: PropTypes.object,
-    type: PropTypes.string,
-};
-
-FormInput.defaultProps = {
-    defaultValue: '',
-    error: undefined,
-    label: '',
-    returnKeyType: 'done',
-    rules: undefined,
-    type: 'text',
 };

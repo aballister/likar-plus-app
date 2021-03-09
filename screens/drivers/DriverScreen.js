@@ -1,145 +1,38 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    Alert,
-    Text, View,
-} from 'react-native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { format } from 'date-fns';
-import CustomHeaderButton from '../../components/CustomHeaderButton';
+import { View } from 'react-native';
 import drfProvider from '../../providers/restProvider';
-import { DriverItemView } from './Drivers.style';
+import { requestErrorHandler } from '../../utils';
+import ListItem from '../../components/ListItem/ListItem';
+import useHeaderItemButtons from '../../hooks/useHeaderItemButtons';
+import useDeleteConfirmation from '../../hooks/useDeleteConfirmation';
+import { translate } from '../../locale';
+import useSettings from '../../hooks/useSettings';
 
 export default function DriverScreen({ route, navigation }) {
-    const { driver } = route.params;
+    const { item } = route.params;
+    const settings = useSettings();
 
-    function removeDriverHandler() {
-        drfProvider('DELETE', `drivers/${driver.id}`)
+    function removeItemHandler() {
+        drfProvider('DELETE', `${settings.resource}/${item.id}`)
             .then(() => {
-                navigation.navigate('Drivers');
+                navigation.navigate(settings.list.screen);
             })
-            .catch((error) => {
-                Alert.alert(
-                    'Some shit happened',
-                    `${JSON.stringify(error)}`,
-                    [
-                        {
-                            text: 'OK',
-                        },
-                    ],
-                );
-            });
+            .catch(requestErrorHandler);
     }
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                    <Item
-                        iconName='edit'
-                        onPress={() => navigation.navigate('DriverEdit', {
-                            driver,
-                        })}
-                        title='Edit'
-                    />
-                    <Item
-                        iconName='delete'
-                        onPress={() => Alert.alert(
-                            'Видалити водія?',
-                            'Підтвердіть видалення водія',
-                            [
-                                {
-                                    text: 'Відміна',
-                                    style: 'cancel',
-                                },
-                                { text: 'Видалити', onPress: removeDriverHandler },
-                            ],
-                            { cancelable: false },
-                        )}
-                        title='Delete'
-                    />
-                </HeaderButtons>
-            ),
-        });
-    }, [navigation]);
+    const removeHandler = useDeleteConfirmation(translate(`${settings.resource}.removeItem`), translate(`${settings.resource}.removeItemConfirm`), removeItemHandler);
+
+    useHeaderItemButtons(item, settings.edit.screen, removeHandler);
 
     return (
         <View style={{ flex: 1 }}>
-            <DriverItemView>
-                <Text style={{ fontSize: 18 }}>
-                    {`${driver.lastName} ${driver.firstName} ${driver.middleName}`}
-                </Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Телефон:
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.phone}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Послуги до 18:00 (грн):
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.dayPrice}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Послуги після 18:00 (грн):
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.eveningPrice}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            0-5 викликів (%):
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.lessFive}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            6-10 викликів (%):
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.lessTen}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            11+ викликів (%):
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.aboveEleven}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 130 }}>
-                        <Text>
-                            Коментар:
-                        </Text>
-                    </View>
-                    <Text>
-                        {driver.comment}
-                    </Text>
-                </View>
-            </DriverItemView>
+            <ListItem
+                fields={settings.page.fields}
+                item={item}
+                routeTo={settings.itemScreen}
+                title={settings.page.titleFields}
+            />
         </View>
     );
 }

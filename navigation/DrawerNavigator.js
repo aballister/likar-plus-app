@@ -10,6 +10,7 @@ import Icon from '../components/Icon';
 import DriversNavigator from './DriversNavigator';
 import CompaniesNavigator from './CompaniesNavigator';
 import CustomersNavigator from './CustomersNavigator';
+import { translate } from '../locale';
 
 const AppDrawerNavigator = createDrawerNavigator();
 
@@ -43,7 +44,6 @@ export default function DrawerNavigator() {
                         <Icon
                             color={color}
                             name='format-list-bulleted'
-                            size={23}
                         />
                     ),
                 }}
@@ -58,7 +58,6 @@ export default function DrawerNavigator() {
                         <Icon
                             color={color}
                             name='people'
-                            size={23}
                         />
                     ),
                 }}
@@ -73,7 +72,6 @@ export default function DrawerNavigator() {
                         <Icon
                             color={color}
                             name='medical-services'
-                            size={23}
                         />
                     ),
                 }}
@@ -82,13 +80,12 @@ export default function DrawerNavigator() {
                 component={DriversNavigator}
                 name='Drivers'
                 options={{
-                    title: 'Водії',
+                    title: translate('drivers.drivers'),
                     // eslint-disable-next-line react/prop-types
                     drawerIcon: ({ color }) => (
                         <Icon
                             color={color}
                             name='directions-car'
-                            size={23}
                         />
                     ),
                 }}
@@ -103,7 +100,6 @@ export default function DrawerNavigator() {
                         <Icon
                             color={color}
                             name='business-center'
-                            size={23}
                         />
                     ),
                 }}

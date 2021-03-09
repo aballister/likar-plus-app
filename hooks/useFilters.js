@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
 export default function useFilters(data, filters, sortFn) {
-    const [result, setResult] = useState(data);
+    const [initialData, setInitialData] = useState([]);
+    const [result, setResult] = useState([]);
 
     useEffect(() => {
-        setResult(data);
+        setInitialData(data);
     }, [data]);
 
     useEffect(() => {
-        let newData = [...result];
+        let newData = [...initialData];
         if (Object.keys(filters).length) {
             if (Object.values(filters.districts).find(el => el)) {
                 const trueDistricts = (Object.keys(filters.districts)
@@ -25,7 +26,7 @@ export default function useFilters(data, filters, sortFn) {
             }
         }
         setResult(newData);
-    }, [filters]);
+    }, [initialData, filters]);
 
     return [result];
 }

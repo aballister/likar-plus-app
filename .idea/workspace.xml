@@ -2,64 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3a52d4f-d053-4167-b639-1d449899e3a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/components/FiltersModal/FiltersModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/FiltersModal/FiltersModal.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/LoadingIndicator/LoadingIndicator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/LoadingIndicator/LoadingIndicator.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/NoResults/NoResults.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/NoResults/NoResults.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/SearchBar/SearchBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/SearchBar/SearchBar.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/TouchableIcon/TouchableIcon.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/customers/CustomersFilters.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/drivers/DriverThumb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/inputs/AppDocumentInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useFetch.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useFetchOnFocus.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useFilters.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useHeaderMenuButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useHeaderRightButtons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useHeaderSaveButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useHeaderSearchBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/navigation/CompaniesNavigator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/navigation/CustomersNavigator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/companies/Companies.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/companies/CompaniesScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/companies/CompanyEditScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/companies/CompanyScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/customers/CustomerCreateScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/customers/CustomerEditScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/customers/CustomerScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/customers/Customers.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/customers/CustomersScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screens/drivers/DriverFormScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/ListItem/ListItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/ListItem/ListItem.style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/drivers/settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/context/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useDeleteConfirmation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useHeaderItemButtons.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useSettings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/FormInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/FormInput/FormInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/FormInput.style.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/FormInput/FormInput.style.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/TouchableIcon.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TouchableIcon/TouchableIcon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/doctors/DoctorsFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/doctors/DoctorsFilters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/drivers/DriversFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/drivers/DriversFilters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/inputs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/inputs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/orders/OrdersFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/orders/OrdersFilters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/FormInput/FormInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/FormInput/FormInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/drivers/DriverForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/drivers/DriverForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/drivers/DriverThumb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useFilters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useHeaderRightButtons.js" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useHeaderListButtons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locale/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ru.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locale/uk.js" beforeDir="false" afterPath="$PROJECT_DIR$/locale/uk.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/navigation/DrawerNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/DrawerNavigator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/navigation/DriversNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/DriversNavigator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/providers/restProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/providers/restProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/doctors/DoctorCreateScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/doctors/DoctorCreateScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/doctors/DoctorEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/doctors/DoctorEditScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/doctors/DoctorsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/doctors/DoctorsScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/drivers/DriverCreateScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/companies/CompanyCreateScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/drivers/DriverEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/drivers/DriverForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/drivers/DriverScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/drivers/DriverScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/drivers/Drivers.style.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/drivers/DriversScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/drivers/DriversScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/orders/OrderCreateScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/orders/OrderCreateScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/orders/OrderEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/orders/OrderEditScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/orders/OrderScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/orders/OrderScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/orders/OrdersScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/orders/OrdersScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/theme/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/theme/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,11 +88,11 @@
       <recent name="D:\work\likar-plus-app\components\TouchableIcon" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\work\likar-plus-app\components" />
+      <recent name="D:\work\likar-plus-app\components\drivers\DriverThumb" />
       <recent name="D:\work\likar-plus-app\hooks" />
       <recent name="D:\work\likar-plus-app\components\FormInput" />
       <recent name="D:\work\likar-plus-app\components\NoResults" />
-      <recent name="D:\work\likar-plus-app\components\TouchableIcon" />
-      <recent name="D:\work\likar-plus-app\components\SearchBar" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
